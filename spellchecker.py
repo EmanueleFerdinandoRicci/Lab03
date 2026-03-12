@@ -5,10 +5,23 @@ import multiDictionary as md
 class SpellChecker:
 
     def __init__(self):
-        pass
+        self.multiD = md.MultiDictionary()
 
     def handleSentence(self, txtIn, language):
-        pass
+        txtIn = replaceChars(txtIn)
+        words = txtIn.split()
+        start_time = time.time()
+        lista = self.multiD.searchWord(words, language)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print("Using contains")
+        errori = 0
+        for w in lista:
+            if not w.corretta:
+                print(w)
+                errori += 1
+        print(f"Numero di errori: {errori}")
+        print(f"Time elapsed: {elapsed_time}")
 
     def printMenu(self):
         print("______________________________\n" +
@@ -23,4 +36,7 @@ class SpellChecker:
 
 
 def replaceChars(text):
-    pass
+    chars = "\\`*_{}[]()>#+-.!$%^;,=_~"
+    for c in chars:
+        text = text.replace(c, "")
+    return text

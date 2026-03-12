@@ -2,7 +2,7 @@ import spellchecker
 
 sc = spellchecker.SpellChecker()
 
-while(True):
+while True:
     sc.printMenu()
 
     txtIn = input()
@@ -28,5 +28,3 @@ while(True):
 
     if int(txtIn) == 4:
         break
-
-
