@@ -60,5 +60,45 @@ class MultiDictionary:
             print("Lingua non trovata")
         return listaRich
 
+    #ESERCIZIO 2
+    def searchWordLinear(self, words, language):
+        target_dict = self._get_target_dict(language)
+        listaRich = []
+        for parola in words:
+            pw = rw.RichWord(parola.lower())
+            found = False
+            for d_word in target_dict:  # Ricerca lineare: uno per uno [cite: 134, 135]
+                if d_word == pw._parola:
+                    found = True
+                    break
+            pw.corretta = found
+            listaRich.append(pw)
+        return listaRich
+
+    def searchWordDichotomic(self, words, language):
+        target_dict = self._get_target_dict(language)
+        listaRich = []
+        for parola in words:
+            pw = rw.RichWord(parola.lower())
+            found = False
+            low, high = 0, len(target_dict) - 1
+            while low <= high:  # Ricerca dicotomica: divide a metà [cite: 137, 138]
+                mid = (low + high) // 2
+                if target_dict[mid] == pw._parola:
+                    found = True
+                    break
+                elif target_dict[mid] < pw._parola:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            pw.corretta = found
+            listaRich.append(pw)
+        return listaRich
+
+    def _get_target_dict(self, language):
+        if language.lower() == "italian": return self.italiano
+        if language.lower() == "english": return self.english
+        return self.spanish
+
 
 
